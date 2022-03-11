@@ -13,9 +13,9 @@ TODO: Simply replace the variables below with your environment's inputs.  I reco
 When you execute this script on a cluster with Kerberos enabled, you'll need to run kinit as the user that is calling YARN (yarn jar) and Solr (solrctl)
 
 
-Part 1 - Delete the files in the output directory that MRIT job will write to
+Part 1 - Delete the files in the output directory that MRIT job will write to (within HDFS)
 
-Part 2 - Delete the MRIT log file, which allows a new one to be created when executing MRIT
+Part 2 - Delete the MRIT log file (localhost), which allows a new one to be created when executing MRIT
 
 Part 3 - Executing the MRIT job, using the use-backup-format
 
