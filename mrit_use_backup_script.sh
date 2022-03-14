@@ -21,7 +21,8 @@ DATE_WITH_TIME=`date "+%Y%m%d-%H%M%S"`
 # Variables that should be overwritten (plug-and-play)
 jaas_location=/root/jaas.conf
 queue_name=default
-nn_fqdn=hdfs://namenodeserver0.cicak.a465-9q4k.cloudera.site:8020
+solr_hdfs_location_name=solr
+nn_fqdn=hdfs://hdfsservicename
 input_file_folder=/tmp/inputfiles
 mrit_output_dir=/user/rcicak/outdir
 morphline=/tmp/reviews.conf
@@ -52,10 +53,11 @@ if grep -q "Success. Done. Program" $MRIT_LOG_FILE; then
 	echo "MRIT completed successfully! Proceeding with Solr collection commands"
 	echo "Deleting the collection $collection_name, we'll be restoring from backup shortly"
 	solrctl --zk $zk collection --delete $collection_name
+	hdfs dfs -rm -r -skipTrash $nn_fqdn/$solr_hdfs_location_name/$collection_name
 
  	# Part 6
 	echo "Restoring the collection $collection_name from backup $backup_name.  This is an async command, therefore, we'll check status next..."
-	solrctl --zk $zk collection --restore $collection_name -b $backup_name -l $mrit_output_dir/$MRIT_OUTPUT_FOLDER -i $UUID
+	solrctl --zk $zk collection --restore $collection_name -b $backup_name -l $nn_fqdn$mrit_output_dir/$MRIT_OUTPUT_FOLDER -i $UUID
 
 	# Part 7
 	while true; do
