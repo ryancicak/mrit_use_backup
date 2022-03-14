@@ -41,7 +41,7 @@ echo "Delete the MRIT log file, starting a new one when executing MRIT"
 rm -f $MRIT_LOG_FILE
 
 # Part 3
-YARN_OPTS="-Djava.security.auth.login.config=/root/$jaas_location" yarn jar /opt/cloudera/parcels/CDH/lib/solr/contrib/mr/search-mr-*-job.jar org.apache.solr.hadoop.MapReduceIndexerTool -D 'mapred.child.java.opts=-Xmx8g' -D mapred.job.queue.name=$queue_name --log4j /opt/cloudera/parcels/CDH/share/doc/search*/examples/solr-nrt/log4j.properties --morphline-file $morphline --output-dir  $nn_fqdn$mrit_output_dir --verbose --zk-host $zk --collection $collection_name --use-backup-format --backup-name $backup_name $nn_fqdn$input_file_folder > $MRIT_LOG_FILE
+YARN_OPTS="-Djava.security.auth.login.config=$jaas_location" yarn jar /opt/cloudera/parcels/CDH/lib/solr/contrib/mr/search-mr-*-job.jar org.apache.solr.hadoop.MapReduceIndexerTool -D 'mapred.child.java.opts=-Xmx8g' -D mapred.job.queue.name=$queue_name --log4j /opt/cloudera/parcels/CDH/share/doc/search*/examples/solr-nrt/log4j.properties --morphline-file $morphline --output-dir  $nn_fqdn$mrit_output_dir --verbose --zk-host $zk --collection $collection_name --use-backup-format --backup-name $backup_name $nn_fqdn$input_file_folder > $MRIT_LOG_FILE
 
 echo "Checking if the MRIT job was successful"
 
